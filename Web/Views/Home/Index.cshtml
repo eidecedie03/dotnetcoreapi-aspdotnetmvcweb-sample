@@ -1,0 +1,78 @@
+﻿@model IEnumerable<Web.Models.Record>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>List of Records</h2>
+@using (Html.BeginForm())
+{
+    <div class="form-group">
+        <label class="control-label col-md-1">Name: </label>
+        <div class="col-md-4">
+            @Html.TextBox("SearchByName", null, new { @class = "form-control" })
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="control-label col-md-1">Status: </label>
+        <div class="col-md-4">
+            @Html.DropDownList("SearchByStatus",
+    new List<SelectListItem>
+    {
+    new SelectListItem { Text = "Active", Value = "true"},
+    new SelectListItem { Text = "Inactive", Value = "false"},
+    },
+    "", new { @class = "form-control" })
+        </div>
+    </div>
+    <div class="col-md-2">
+        <input type="submit" value="Search" class="btn btn-default" />
+    </div>
+}
+<br />
+<div class="col-md-12">
+    <br />
+    @Html.ActionLink("Create New", "Create")
+</div>
+
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.EmployeeName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ClockInTime)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ClockOutTime)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.IsActive)
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.EmployeeName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ClockInTime)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ClockOutTime)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.IsActive)
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { id = item.ID }) |
+                @Html.ActionLink("Details", "Details", new { id = item.ID }) |
+                @Html.ActionLink("Delete", "Delete", new { id = item.ID })
+            </td>
+        </tr>
+    }
+
+</table>
